@@ -1,0 +1,5 @@
+version: '3'
+
+networks:
+  docker_env:
+    driver: bridge

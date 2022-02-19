@@ -1,0 +1,9 @@
+image: ${MYSQL_IMAGE}
+ports:
+  - "8306:3306"
+environment:
+  MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-mysql_root_default_pass}
+  MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+volumes:
+  - "${MYSQL_DIR}/data:/var/lib/mysql"
+  - "${MYSQL_DIR}/config:/etc/mysql/conf.d"
