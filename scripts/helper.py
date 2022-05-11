@@ -13,3 +13,8 @@ def execute_or_fatal(cmd):
     if ret != 0:
         xlog.error('result is {}'.format(ret))
         exit(ret)
+
+
+def execute(cmd):
+    xlog.debug('execute: {}'.format(cmd))
+    return os.popen(cmd).read()
