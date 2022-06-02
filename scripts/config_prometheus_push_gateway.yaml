@@ -1,0 +1,5 @@
+image: ${PROMETHEUS_PUSH_GATEWAY_IMAGE}
+ports:
+  - "8401:9091"
+labels:
+  org.label-schema.group: "monitoring"

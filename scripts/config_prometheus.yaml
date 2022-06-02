@@ -1,0 +1,11 @@
+image: ${PROMETHEUS_IMAGE}
+user: root
+ports:
+  - "8400:9090"
+volumes:
+  - ${PROMETHEUS_DIR}/etc:/etc/prometheus
+  - ${PROMETHEUS_DIR}/prometheus_data:/prometheus
+command:
+  - '--config.file=/etc/prometheus/prometheus.yml'
+  - '--storage.tsdb.path=/prometheus'
+  - '--storage.tsdb.retention.time=3d'

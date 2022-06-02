@@ -1,0 +1,8 @@
+image: ${PROMETHEUS_ALERT_MANAGER_IMAGE}
+ports:
+  - "8402:9092"
+volumes:
+  - ${PROMETHEUS_ALERT_MANAGER_DIR}/alertmanager:/etc/alertmanager
+command:
+  - '--config.file=/etc/alertmanager/config.yml'
+  - '--storage.path=/alertmanager'
