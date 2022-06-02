@@ -1,0 +1,8 @@
+image: ${GRAFANA_IMAGE}
+user: root
+ports:
+  - "8300:3000"
+volumes:
+  - "${GRAFANA_DIR}/etc:/etc/grafana/"
+  - "${GRAFANA_DIR}/data:/var/lib/grafana/"
+  - "${GRAFANA_DIR}/log:/var/log/grafana/"
