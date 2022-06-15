@@ -19,6 +19,11 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['prometheus_push_gateway:9091']
+  - job_name: 'prometheus_mysql_exporter'
+    scrape_interval: 10s
+    honor_labels: true
+    static_configs:
+      - targets: ['prometheus_mysql_exporter:9104']
       
 alerting:
   alertmanagers:

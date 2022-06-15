@@ -50,8 +50,17 @@ for m in defines.modules:
         yaml_info['services'][m]['networks'] = networks
     if 'image' not in yaml_info['services'][m].keys():
         yaml_info['services'][m]['image'] = "${"+m.upper()+"_IMAGE}"
+    if '-name' in yaml_info['services'][m].keys():
+        mID = yaml_info['services'][m]['-name']
+        del yaml_info['services'][m]['-name']
+        yaml_info['services'][mID] = yaml_info['services'][m]
+        del yaml_info['services'][m]
 
-    data_dir = abs_base_docker_compose(eval('defines.' + m.upper() + '_DIR'))
+    data_dir = ''
+    try:
+        data_dir = abs_base_docker_compose(eval('defines.' + m.upper() + '_DIR'))
+    except (NameError, AttributeError):
+        data_dir = abs_base_docker_compose(os.path.join(eval('defines.ROOT_DIR'), m))
     image = eval('defines.' + m.upper() + '_IMAGE')
 
     if not os.path.exists(data_dir):
@@ -59,8 +68,11 @@ for m in defines.modules:
         os.makedirs(data_dir)
         with open(os.path.join(data_dir, 'new'), 'w') as file_writer:
             file_writer.write(time.asctime(time.localtime(time.time())))
-        d = importlib.import_module('init_' + m)
-        d.pre_init(data_dir, image)
+        try:
+            d = importlib.import_module('init_' + m)
+            d.pre_init(data_dir, image)
+        except ModuleNotFoundError:
+            pass
 
 with open(abs_base_docker_compose('docker-compose.yaml'), 'w', encoding='utf-8') as f:
     yaml.dump(yaml_info, f, allow_unicode=True, default_flow_style=False,sort_keys=False)
