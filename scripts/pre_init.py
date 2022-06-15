@@ -48,6 +48,8 @@ for m in defines.modules:
         yaml_info['services'][m]['hostname'] = m
     if 'networks' not in yaml_info['services'][m].keys():
         yaml_info['services'][m]['networks'] = networks
+    if 'image' not in yaml_info['services'][m].keys():
+        yaml_info['services'][m]['image'] = "${"+m.upper()+"_IMAGE}"
 
     data_dir = abs_base_docker_compose(eval('defines.' + m.upper() + '_DIR'))
     image = eval('defines.' + m.upper() + '_IMAGE')

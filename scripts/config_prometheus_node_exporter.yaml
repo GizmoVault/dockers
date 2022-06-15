@@ -1,0 +1,11 @@
+ports:
+  - "${PROMETHEUS_NODE_EXPORTER_EXPORT_PORT}:9100"
+volumes:
+  - /proc:/host/proc:ro
+  - /sys:/host/sys:ro
+  - /:/rootfs:ro
+command:
+  - '--path.procfs=/host/proc'
+  - '--path.rootfs=/rootfs'
+  - '--path.sysfs=/host/sys'
+  - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
