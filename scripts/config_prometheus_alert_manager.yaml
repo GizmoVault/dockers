@@ -1,6 +1,6 @@
 image: ${PROMETHEUS_ALERT_MANAGER_IMAGE}
 ports:
-  - "8402:9092"
+  - "${PROMETHEUS_ALERT_MANAGER_EXPORT_PORT}:9092"
 volumes:
   - ${PROMETHEUS_ALERT_MANAGER_DIR}/alertmanager:/etc/alertmanager
 command:

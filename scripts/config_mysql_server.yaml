@@ -1,6 +1,6 @@
 image: ${MYSQL_SERVER_IMAGE}
 ports:
-  - "8406:3306"
+  - "${MYSQL_SERVER_EXPORT_PORT}:3306"
 volumes:
   - "${MYSQL_SERVER_DIR}/data:/var/lib/mysql"
   - "${MYSQL_SERVER_DIR}/config/my.cnf:/etc/my.cnf"

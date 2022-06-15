@@ -1,6 +1,6 @@
 image: ${REDIS_STAT_IMAGE}
 ports:
-  -  "8080:63790"
+  -  "${REDIS_STAT_EXPORT_PORT}:63790"
 links:
   - redis
 command: --server redis -a ${REDIS_PASSWORD:-redis_default_pass}

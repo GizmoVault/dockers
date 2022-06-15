@@ -1,6 +1,6 @@
 image: ${MYSQL_IMAGE}
 ports:
-  - "8306:3306"
+  - "${MYSQL_EXPORT_PORT}:3306"
 environment:
   MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-mysql_root_default_pass}
   MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}

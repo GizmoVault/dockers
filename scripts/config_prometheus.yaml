@@ -1,7 +1,7 @@
 image: ${PROMETHEUS_IMAGE}
 user: root
 ports:
-  - "8400:9090"
+  - "${PROMETHEUS_EXPORT_PORT}:9090"
 volumes:
   - ${PROMETHEUS_DIR}/etc:/etc/prometheus
   - ${PROMETHEUS_DIR}/prometheus_data:/prometheus
