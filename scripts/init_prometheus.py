@@ -10,10 +10,10 @@ def pre_init(data_root, image):
         file_writer.write('''
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
-  - job_name: 'demo'
+  - job_name: 'node_exporter'
     scrape_interval: 10s
     static_configs:
-      - targets: ['demo:9009']
+      - targets: ['prometheus_node_exporter:9100']
   - job_name: 'prometheus_push_gateway'
     scrape_interval: 10s
     honor_labels: true

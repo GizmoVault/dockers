@@ -2,6 +2,8 @@ image: ${GRAFANA_IMAGE}
 user: root
 ports:
   - "${GRAFANA_EXPORT_PORT}:3000"
+links:
+  - prometheus
 volumes:
   - "${GRAFANA_DIR}/etc:/etc/grafana/"
   - "${GRAFANA_DIR}/data:/var/lib/grafana/"
