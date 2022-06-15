@@ -1,7 +1,7 @@
 import os
 
 
-def pre_init(data_root, image):
+def pre_init(data_root, image, docker_vars):
     os.makedirs(os.path.join(data_root, 'alertmanager'))
     with open(os.path.join(data_root, 'alertmanager', 'config.yml'), 'w') as file_writer:
         file_writer.write('''
@@ -23,5 +23,5 @@ receivers:
         ''')
 
 
-def post_init(data_root, image):
+def post_init(data_root, image, docker_vars):
     pass

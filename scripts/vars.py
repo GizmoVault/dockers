@@ -1,0 +1,25 @@
+root_dir = 'datas'
+
+docker_vars = {
+    'REDIS_EXPORT_PORT': 8300,
+    'REDIS_STAT_EXPORT_PORT': 8301,
+    'MYSQL_EXPORT_PORT': 8302,
+    'MYSQL_SERVER_EXPORT_PORT': 8302,
+    'GRAFANA_EXPORT_PORT': 8303,
+    'PROMETHEUS_EXPORT_PORT': 8304,
+    'PROMETHEUS_PUSH_GATEWAY_EXPORT_PORT': 8305,
+    'PROMETHEUS_ALERT_MANAGER_EXPORT_PORT': 8306,
+    'PROMETHEUS_NODE_EXPORTER_EXPORT_PORT': 8307,
+    'PROMETHEUS_MYSQL_EXPORTER_EXPORT_PORT': 8308,
+
+    'GRAFANA_IMAGE': 'grafana/grafana',
+    'REDIS_IMAGE': 'redis',
+    'REDIS_STAT_IMAGE': 'insready/redis-stat',
+    'MYSQL_IMAGE': 'mysql',
+    'MYSQL_SERVER_IMAGE': 'mysql/mysql-server',
+    'PROMETHEUS_IMAGE': 'prom/prometheus',
+    'PROMETHEUS_PUSH_GATEWAY_IMAGE': 'prom/pushgateway',
+    'PROMETHEUS_ALERT_MANAGER_IMAGE': 'prom/alertmanager',
+    'PROMETHEUS_NODE_EXPORTER_IMAGE': 'prom/node-exporter',
+    'PROMETHEUS_MYSQL_EXPORTER_IMAGE': 'prom/mysqld-exporter',
+}

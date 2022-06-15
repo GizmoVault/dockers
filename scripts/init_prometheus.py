@@ -2,7 +2,7 @@ import os
 from helper import execute, execute_or_fatal
 
 
-def pre_init(data_root, image):
+def pre_init(data_root, image, docker_vars):
     execute('docker rm -f prometheus_tmp')
     execute_or_fatal('docker run -d --name=prometheus_tmp ' + image)
     execute_or_fatal('docker cp -a prometheus_tmp:/etc/prometheus/ ' + data_root + '/etc')
@@ -60,5 +60,5 @@ groups:
     execute_or_fatal('docker rm -f prometheus_tmp')
 
 
-def post_init(data_root, image):
+def post_init(data_root, image, docker_vars):
     pass

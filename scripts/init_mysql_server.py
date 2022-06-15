@@ -3,10 +3,10 @@ from posixpath import split
 import time
 from tempfile import NamedTemporaryFile
 from helper import execute_or_fatal, execute
-import defines
+import modules
 
 
-def pre_init(data_root, image):
+def pre_init(data_root, image, docker_vars):
     execute_or_fatal('docker rm -f mysql_tmp')
     execute_or_fatal('docker run -d --name=mysql_tmp ' + image)
 
@@ -17,7 +17,7 @@ def pre_init(data_root, image):
     execute_or_fatal('docker rm -f mysql_tmp')
 
 
-def post_init(data_root, image):
+def post_init(data_root, image, docker_vars):
     rootPass = ''
     for i in range(30):
         time.sleep(1)
@@ -31,9 +31,9 @@ def post_init(data_root, image):
     print("password: [" + rootPass + ']')
 
     f = NamedTemporaryFile(mode="w+")
-    f.write("ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+os.environ['MYSQL_ROOT_PASSWORD']
+    f.write("ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+docker_vars['MYSQL_ROOT_PASSWORD']
             + "';\n")
-    f.write("CREATE USER 'root'@'%' IDENTIFIED BY '"+os.environ['MYSQL_ROOT_PASSWORD']+"';\n")
+    f.write("CREATE USER 'root'@'%' IDENTIFIED BY '"+docker_vars['MYSQL_ROOT_PASSWORD']+"';\n")
     f.write("GRANT ALL ON *.* TO 'root'@'%';\n")
     f.write('FLUSH PRIVILEGES;')
     f.flush()
