@@ -24,6 +24,13 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['prometheus_mysql_exporter:9104']
+  - job_name: 'file_ds'
+    # metrics_path: '/actuator/prometheus'
+    file_sd_configs:
+    - files:
+      - /prometheus_sd_files/*.yml
+      - /prometheus_sd_files/*.yaml
+      - /prometheus_sd_files/*.json
       
 alerting:
   alertmanagers:
@@ -34,6 +41,15 @@ alerting:
 
 rule_files:
   - "rule_test.yml"
+        ''')
+
+    os.makedirs(data_root + '/sd/files')
+    with open(os.path.join(data_root, 'sd', 'files', 'rule_test.yml'), 'w') as file_writer:
+        file_writer.write('''
+- labels:
+    service: test
+  targets:
+  - 192.168.249.11:9000
         ''')
     with open(os.path.join(data_root, 'etc', 'rule_test.yml'), 'w') as file_writer:
         file_writer.write('''

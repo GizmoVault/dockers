@@ -5,6 +5,7 @@ ports:
 volumes:
   - ${PROMETHEUS_DIR}/etc:/etc/prometheus
   - ${PROMETHEUS_DIR}/prometheus_data:/prometheus
+  - ${PROMETHEUS_DIR}/sd/files:/prometheus_sd_files
 links:
   - prometheus_node_exporter
   - prometheus_mysql_exporter
