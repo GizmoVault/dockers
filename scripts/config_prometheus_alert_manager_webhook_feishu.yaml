@@ -1,0 +1,6 @@
+volumes:
+  - "${PROMETHEUS_ALERT_MANAGER_WEBHOOK_FEISHU_DIR}/config.yml:/config.yml"
+command:
+  - server
+  - -c
+  - /config.yml

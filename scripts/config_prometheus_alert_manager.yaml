@@ -1,8 +1,10 @@
 image: ${PROMETHEUS_ALERT_MANAGER_IMAGE}
 ports:
-  - "${PROMETHEUS_ALERT_MANAGER_EXPORT_PORT}:9092"
+  - "${PROMETHEUS_ALERT_MANAGER_EXPORT_PORT}:9093"
 volumes:
   - ${PROMETHEUS_ALERT_MANAGER_DIR}/alertmanager:/etc/alertmanager
+links:
+  - prometheus_alert_manager_webhook_feishu
 command:
   - '--config.file=/etc/alertmanager/config.yml'
   - '--storage.path=/alertmanager'

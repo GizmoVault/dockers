@@ -18,7 +18,7 @@ route:
 receivers:
   - name: 'web.hook'
     webhook_configs:
-      - url: http://webhook:12345/webhook
+      - url: http://prometheus_alert_manager_webhook_feishu:8000/hook/webhook
         send_resolved: false
         ''')
 

@@ -9,6 +9,7 @@ volumes:
 links:
   - prometheus_node_exporter
   - prometheus_mysql_exporter
+  - prometheus_alert_manager
 command:
   - '--config.file=/etc/prometheus/prometheus.yml'
   - '--storage.tsdb.path=/prometheus'

@@ -1,7 +1,8 @@
-from helper import execute_or_fatal
+from helper import execute_or_fatal, execute
 
 
 def pre_init(data_root, image, docker_vars):
+    execute('docker rm -f grafana_tmp')
     execute_or_fatal('docker run -d --user root --name=grafana_tmp ' + image)
     execute_or_fatal('docker cp -a grafana_tmp:/etc/grafana/ ' + data_root + '/etc')
     execute_or_fatal('docker cp -a grafana_tmp:/var/lib/grafana/ ' + data_root + '/data')

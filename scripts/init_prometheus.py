@@ -37,7 +37,7 @@ alerting:
   - scheme: http
     static_configs:
     - targets: 
-      - alertmanager:9092
+      - prometheus_alert_manager:9093
 
 rule_files:
   - "rule_test.yml"
@@ -69,7 +69,17 @@ groups:
         labels:
           severity: warning
         annotations:
-          description: "QPS 当前值为: {{ $value }}"        
+          description: "QPS 当前值为: {{ $value }}"
+      - alert: LicenceCheckDown
+        expr: > 
+            increase(stw_licence_licence_check_success[2h]) <= 0 and 
+            increase(stw_licence_licence_check_success[2h] offset 2h) > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "licence檢測丟失: {{ $value }}"
+          description: "{{ $labels.ip }}"
         ''')
 
     os.makedirs(data_root + '/prometheus_data')

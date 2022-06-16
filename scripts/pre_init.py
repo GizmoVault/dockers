@@ -31,20 +31,6 @@ for key in yaml_info['networks']:
 yaml_info['services'] = {}
 
 
-def sure_var(var_key, def_value):
-    if var_key not in vars.docker_vars.keys():
-        if os.getenv(var_key) is not None:
-            vars.docker_vars[var_key] = os.getenv(var_key)
-            print('NO ' + var_key + ', use the environment value: ' + vars.docker_vars[var_key])
-        else:
-            vars.docker_vars[var_key] = def_value
-            print('NO ' + var_key + ', use the default value: ' + vars.docker_vars[var_key])
-
-
-sure_var('REDIS_PASSWORD', 'redis_default_pass')
-sure_var('INFLUXDB_ADMIN_PASSWORD', 'influx_admin_default_pass')
-sure_var('MYSQL_ROOT_PASSWORD', 'mysql_root_default_pass')
-
 for m in modules.modules:
     with open('config_' + m + '.yaml', 'r') as f:
         yaml_info['services'][m] = yaml.safe_load(f)

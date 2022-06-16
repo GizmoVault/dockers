@@ -1,13 +1,11 @@
 import os
-from posixpath import split
 import time
 from tempfile import NamedTemporaryFile
 from helper import execute_or_fatal, execute
-import modules
 
 
 def pre_init(data_root, image, docker_vars):
-    execute_or_fatal('docker rm -f mysql_tmp')
+    execute('docker rm -f mysql_tmp')
     execute_or_fatal('docker run -d --name=mysql_tmp ' + image)
 
     os.makedirs(data_root+'/config')
@@ -18,7 +16,7 @@ def pre_init(data_root, image, docker_vars):
 
 
 def post_init(data_root, image, docker_vars):
-    rootPass = ''
+    root_pass = ''
     for i in range(30):
         time.sleep(1)
         msg = execute('docker logs mysql_server 2>&1 | grep GENERATED')
@@ -26,9 +24,9 @@ def post_init(data_root, image, docker_vars):
         ps = msg.split('PASSWORD:')
         if len(ps) != 2:
             continue
-        rootPass = ps[1].strip()
+        root_pass = ps[1].strip()
         break
-    print("password: [" + rootPass + ']')
+    print("password: [" + root_pass + ']')
 
     f = NamedTemporaryFile(mode="w+")
     f.write("ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+docker_vars['MYSQL_ROOT_PASSWORD']
@@ -39,5 +37,5 @@ def post_init(data_root, image, docker_vars):
     f.flush()
     execute_or_fatal('docker cp ' + f.name + ' mysql_server:/tmp/do.sql')
     time.sleep(5)
-    execute_or_fatal('docker exec -it mysql_server /bin/bash -c "' + 'mysql -uroot -p\''+rootPass+'\' --connect-expired-password  </tmp/do.sql' + '"')
+    execute_or_fatal('docker exec -it mysql_server /bin/bash -c "' + 'mysql -uroot -p\''+root_pass+'\' --connect-expired-password  </tmp/do.sql' + '"')
     f.close()

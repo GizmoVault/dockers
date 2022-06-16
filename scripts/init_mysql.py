@@ -1,11 +1,11 @@
 import os
 import time
 from tempfile import NamedTemporaryFile
-from helper import execute_or_fatal
-import modules
+from helper import execute_or_fatal, execute
 
 
 def pre_init(data_root, image, docker_vars):
+    execute('docker rm -f mysql_tmp')
     execute_or_fatal('docker run -d --name=mysql_tmp ' + image)
     execute_or_fatal('docker cp -a mysql_tmp:/var/lib/mysql/ ' + data_root + '/data')
     execute_or_fatal('docker cp -a mysql_tmp:/etc/mysql/conf.d/ ' + data_root + '/config')
