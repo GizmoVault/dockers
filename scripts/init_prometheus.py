@@ -31,6 +31,19 @@ scrape_configs:
       - /prometheus_sd_files/*.yml
       - /prometheus_sd_files/*.yaml
       - /prometheus_sd_files/*.json
+  - job_name: 'file_ds_fix_metrics_path'
+    # metrics_path: '/metrics'
+    file_sd_configs:
+    - files:
+      - /prometheus_sd_files/10m/*.yml
+      refresh_interval: 10m
+    relabel_configs:
+      - source_labels: [__address__]
+        regex:  '[^/]+(/.*)'            # capture '/...' part
+        target_label: __metrics_path__  # change metrics path
+      - source_labels: [__address__]
+        regex:  '([^/]+)/.*'            # capture host:port
+        target_label: __address__       # change target
       
 alerting:
   alertmanagers:
@@ -72,14 +85,21 @@ groups:
           description: "QPS 当前值为: {{ $value }}"
       - alert: LicenceCheckDown
         expr: > 
-            increase(stw_licence_licence_check_success[2h]) <= 0 and 
-            increase(stw_licence_licence_check_success[2h] offset 2h) > 0
+            (sum(stw_licence_licence_check_success{} or stw_licence_licence_check_success{}*0)
+                by(city,ip, licence_id, machine_id)-
+            sum(stw_licence_licence_check_success{} offset 2h or stw_licence_licence_check_success{}*0)
+                by(city,ip, licence_id, machine_id)) <= 0
+            and
+            (sum(stw_licence_licence_check_success{} offset 2h or stw_licence_licence_check_success{}*0)
+                by(city,ip, licence_id, machine_id)-
+            sum(stw_licence_licence_check_success{} offset 4h or stw_licence_licence_check_success{}*0)
+                by(city,ip, licence_id, machine_id)) > 0
         for: 10m
         labels:
           severity: warning
         annotations:
           summary: "licence檢測丟失: {{ $value }}"
-          description: "{{ $labels.ip }}"
+          description: "{{ $labels.ip }}[{{ $labels.city }}]"
         ''')
 
     os.makedirs(data_root + '/prometheus_data')
