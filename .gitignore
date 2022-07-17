@@ -136,3 +136,5 @@ dmypy.json
 
 /.env
 /.local.vars
+
+/.modules
