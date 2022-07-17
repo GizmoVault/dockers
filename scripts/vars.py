@@ -15,6 +15,8 @@ docker_vars = {
     'PROMETHEUS_ALERT_MANAGER_EXPORT_PORT': 8306,
     'PROMETHEUS_NODE_EXPORTER_EXPORT_PORT': 8307,
     'PROMETHEUS_MYSQL_EXPORTER_EXPORT_PORT': 8308,
+    'NGINX_HTTP_EXPORT_PORT': 80,
+    'NGINX_HTTPS_EXPORT_PORT': 443,
 
     'GRAFANA_IMAGE': 'grafana/grafana',
     'REDIS_IMAGE': 'redis',
@@ -27,6 +29,8 @@ docker_vars = {
     'PROMETHEUS_NODE_EXPORTER_IMAGE': 'prom/node-exporter',
     'PROMETHEUS_MYSQL_EXPORTER_IMAGE': 'prom/mysqld-exporter',
     'PROMETHEUS_ALERT_MANAGER_WEBHOOK_FEISHU_IMAGE': 'johnxu1989/alertmanager-webhook-feishu',
+    'NGINX_IMAGE': 'nginx',
+    'PHP_IMAGE': 'php:7.2-fpm',
 }
 
 try:
