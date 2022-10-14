@@ -17,6 +17,7 @@ docker_vars = {
     'PROMETHEUS_MYSQL_EXPORTER_EXPORT_PORT': 8308,
     'NGINX_HTTP_EXPORT_PORT': 80,
     'NGINX_HTTPS_EXPORT_PORT': 443,
+    'MONGO_EXPORT_PORT': 8309,
 
     'GRAFANA_IMAGE': 'grafana/grafana',
     'REDIS_IMAGE': 'redis',
@@ -31,6 +32,7 @@ docker_vars = {
     'PROMETHEUS_ALERT_MANAGER_WEBHOOK_FEISHU_IMAGE': 'johnxu1989/alertmanager-webhook-feishu',
     'NGINX_IMAGE': 'nginx',
     'PHP_IMAGE': 'php:7.2-fpm',
+    'MONGO_IMAGE': 'mongo',
 }
 
 try:
@@ -59,6 +61,10 @@ def sure_var(var_key, def_value):
 sure_var('REDIS_PASSWORD', 'redis_default_pass')
 sure_var('INFLUXDB_ADMIN_PASSWORD', 'influx_admin_default_pass')
 sure_var('MYSQL_ROOT_PASSWORD', 'mysql_root_default_pass')
+sure_var('MONGO_ROOT_PASSWORD', 'mongo_root_default_pass')
+sure_var('MONGO_INIT_DB', 'my_db')
+sure_var('MONGO_INIT_USER', 'mongo_default_user')
+sure_var('MONGO_INIT_PASSWORD', 'mongo_default_pass')
 
 if docker_vars.get('FEISHU_WEBHOOK') is None:
     print('WARNING: NO FEISHU_WEBHOOK, you can set it on .local.vars file or environment')

@@ -1,0 +1,12 @@
+ports:
+  - "${MONGO_EXPORT_PORT}:27017"
+environment:
+  TZ: Asia/Shanghai
+  MONGO_INITDB_ROOT_USERNAME: root
+  MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+  MONGO_INITDB_DATABASE: ${MONGO_INIT_DB}
+  MONGO_USERNAME: ${MONGO_INIT_USER}
+  MONGO_PASSWORD: ${MONGO_INIT_PASSWORD}
+volumes:
+  - "${MONGO_DIR}/data:/data/db"
+  - ${MONGO_DIR}/scrips/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
