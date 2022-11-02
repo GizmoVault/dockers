@@ -18,6 +18,8 @@ docker_vars = {
     'NGINX_HTTP_EXPORT_PORT': 80,
     'NGINX_HTTPS_EXPORT_PORT': 443,
     'MONGO_EXPORT_PORT': 8309,
+    'RABBITMQ_EXPORT_PORT': 8310,
+    'RABBITMQ_EXPORT_WEB_PORT': 8311,
 
     'GRAFANA_IMAGE': 'grafana/grafana',
     'REDIS_IMAGE': 'redis',
@@ -33,6 +35,7 @@ docker_vars = {
     'NGINX_IMAGE': 'nginx',
     'PHP_IMAGE': 'php:7.2-fpm',
     'MONGO_IMAGE': 'mongo',
+    'RABBITMQ_IMAGE': 'rabbitmq:management',
 }
 
 try:
@@ -65,6 +68,8 @@ sure_var('MONGO_ROOT_PASSWORD', 'mongo_root_default_pass')
 sure_var('MONGO_INIT_DB', 'my_db')
 sure_var('MONGO_INIT_USER', 'mongo_default_user')
 sure_var('MONGO_INIT_PASSWORD', 'mongo_default_pass')
+sure_var('RABBITMQ_USER', 'admin')
+sure_var('RABBITMQ_PASSWORD', 'admin')
 
 if docker_vars.get('FEISHU_WEBHOOK') is None:
     print('WARNING: NO FEISHU_WEBHOOK, you can set it on .local.vars file or environment')
