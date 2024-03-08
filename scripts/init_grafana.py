@@ -11,10 +11,10 @@ def pre_init(data_root, image, docker_vars):
 
 
 def post_init(data_root, image, docker_vars):
-    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana-cli plugins install grafana-piechart-panel"')
-    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana-cli plugins install alexanderzobnin-zabbix-app"')
-    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana-cli plugins install grafana-clock-panel"')
-    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana-cli plugins install snuids-radar-panel"')
-    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana-cli plugins install redis-datasource"')
+    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana cli plugins install grafana-piechart-panel"')
+    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana cli plugins install alexanderzobnin-zabbix-app"')
+    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana cli plugins install grafana-clock-panel"')
+    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana cli plugins install snuids-radar-panel"')
+    execute_or_fatal('docker exec -it grafana /bin/bash -c "grafana cli plugins install redis-datasource"')
     execute_or_fatal('docker restart grafana')
 

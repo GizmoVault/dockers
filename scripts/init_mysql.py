@@ -20,5 +20,5 @@ def post_init(data_root, image, docker_vars):
     f.flush()
     execute_or_fatal('docker cp ' + f.name + ' mysql:/tmp/do.sql')
     time.sleep(5)
-    execute_or_fatal('docker exec -it mysql /bin/bash -c "' + 'mysql -uroot -p${MYSQL_ROOT_PASSWORD}</tmp/do.sql' + '"')
+    execute_or_fatal('docker exec -it mysql /bin/bash -c "' + 'mysql -uroot -p'+docker_vars['MYSQL_ROOT_PASSWORD']+'</tmp/do.sql' + '"')
     f.close()
