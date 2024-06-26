@@ -36,6 +36,8 @@ docker_vars = {
     'PHP_IMAGE': 'php:7.2-fpm',
     'MONGO_IMAGE': 'mongo',
     'RABBITMQ_IMAGE': 'rabbitmq:management',
+    'ASYNQMON_IMAGE': 'hibiken/asynqmon',
+    'ASYNQMON_EXPORT_PORT': 8080,
 }
 
 try:
