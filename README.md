@@ -1,31 +1,19 @@
 # dockers
 
-需要`Python3`，所以或者`Python`或者`Python3`只想
+1. 安装`python`或`python3`
+2. 安装最新版本 `docker`，`docker compose`插件
+3. 安装项目依赖的`python`库
 
-```bash
-pip install -r requirements.txt
-#or 
-pip3 install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    #or 
+    pip3 install -r requirements.txt
+    ```
 
-```bash
-make update-all
+4. 拷贝`.modules.sample`为`.modules`, 修改文件去除不需要的服务
+5. 拷贝`.local.vars.sample`为`.local.vars`。如果有必要，则修改。变量参考`scripts/vars.py`
+6. 启动`docker`镜像
 
-or
-
-make py3-update-all
-
-
-if you docker-compose use docker plugin, such as `docker compose`
-
-then call
-
-make 
-
-make update-all-2
-
-or
-
-make py3-update-all-2
-
-```
+    ```bash
+    make update-all
+    ```
