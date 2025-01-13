@@ -11,36 +11,38 @@ endif
 
 ifndef PYTHON_EXISTS
 ifndef PYTHON3_EXISTS
-	$(error "PYTHON=$(PYTHON) OR PYTHON=$(PYTHON3) not found in $(PATH)")
+$(error "PYTHON=$(PYTHON) OR PYTHON=$(PYTHON3) not found in $(PATH)")
 endif
 endif
 
 ifdef PYTHON_EXISTS
-	PYTHON_VERSION_MIN=3.5
-	PYTHON_VERSION=$(shell $(PYTHON) -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
-	PYTHON_VERSION_OK=$(shell $(PYTHON) -c 'import sys;\
-	  print(int(float("%d.%d"% sys.version_info[0:2]) >= $(PYTHON_VERSION_MIN)))' )
+	python_version_full := $(wordlist 2,4,$(subst ., ,$(shell $(PYTHON) --version 2>&1)))
+    python_version_major := $(word 1,${python_version_full})
+    python_version_minor := $(word 2,${python_version_full})
 
-	ifneq ($(PYTHON_VERSION_OK),0)
-	  XPYTHON=$(PYTHON)
-	endif
+    VER_GE_3_5 := $(shell [ $(python_version_major) -gt 3 -o \( $(python_version_major) -eq 3 -a $(python_version_minor) -ge 10 \) ] && echo true)
+
+    ifeq ($(VER_GE_3_5),true)
+		XPYTHON=$(PYTHON)
+    endif
 endif
 
 ifndef XPYTHON
 ifdef PYTHON3_EXISTS
-	PYTHON_VERSION_MIN=3.5
-	PYTHON_VERSION=$(shell $(PYTHON3) -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
-	PYTHON_VERSION_OK=$(shell $(PYTHON3) -c 'import sys;\
-	  print(int(float("%d.%d"% sys.version_info[0:2]) >= $(PYTHON_VERSION_MIN)))' )
+	python_version_full := $(wordlist 2,4,$(subst ., ,$(shell $(PYTHON3) --version 2>&1)))
+    python_version_major := $(word 1,${python_version_full})
+    python_version_minor := $(word 2,${python_version_full})
 
-	ifneq ($(PYTHON_VERSION_OK),0)
+	VER_GE_3_5 := $(shell [ $(python_version_major) -gt 3 -o \( $(python_version_major) -eq 3 -a $(python_version_minor) -ge 10 \) ] && echo true)
+
+	ifeq ($(VER_GE_3_5),true)
 	  XPYTHON=$(PYTHON3)
 	endif
 endif
 endif
 
 ifndef XPYTHON
-	$(error "no matched ptyhon found")
+$(error "no matched ptyhon found")
 endif
 
 ifeq (, $(shell which docker-compose ))
