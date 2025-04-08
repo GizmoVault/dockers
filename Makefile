@@ -20,7 +20,7 @@ ifdef PYTHON_EXISTS
     python_version_major := $(word 1,${python_version_full})
     python_version_minor := $(word 2,${python_version_full})
 
-    VER_GE_3_5 := $(shell [ $(python_version_major) -gt 3 -o \( $(python_version_major) -eq 3 -a $(python_version_minor) -ge 10 \) ] && echo true)
+    VER_GE_3_5 := $(shell [ $(python_version_major) -gt 3 -o \( $(python_version_major) -eq 3 -a $(python_version_minor) -ge 9 \) ] && echo true)
 
     ifeq ($(VER_GE_3_5),true)
 		XPYTHON=$(PYTHON)
@@ -32,8 +32,9 @@ ifdef PYTHON3_EXISTS
 	python_version_full := $(wordlist 2,4,$(subst ., ,$(shell $(PYTHON3) --version 2>&1)))
     python_version_major := $(word 1,${python_version_full})
     python_version_minor := $(word 2,${python_version_full})
+    $(error $(python_version_minor))
 
-	VER_GE_3_5 := $(shell [ $(python_version_major) -gt 3 -o \( $(python_version_major) -eq 3 -a $(python_version_minor) -ge 10 \) ] && echo true)
+	VER_GE_3_5 := $(shell [ $(python_version_major) -gt 3 -o \( $(python_version_major) -eq 3 -a $(python_version_minor) -ge 9 \) ] && echo true)
 
 	ifeq ($(VER_GE_3_5),true)
 	  XPYTHON=$(PYTHON3)
